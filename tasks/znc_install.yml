@@ -1,17 +1,17 @@
 ---
 
 # Requires EPEL repo
-- name: ZNC is installed and the latest version
+- name: (znc_install) [1/6] ZNC is installed and the latest version
   package:
     name: znc
     state: latest
 
-- name: ZNC is enabled on boot
+- name: (znc_install) [2/6] ZNC is enabled on boot
   service:
     name: znc
     enabled: yes
 
-- name: Config dir is present
+- name: (znc_install) [3/6] Config dir is present
   file:
     path: /var/lib/znc/.znc/configs
     state: directory
@@ -19,13 +19,13 @@
     group: znc
     mode: 0740
 
-- name: New self-signed SSL cert/key pair is generated and deployed
+- name: (znc_install) [4/6] New self-signed SSL cert/key pair is generated and deployed
   command: openssl req -x509 -newkey rsa:2048 -nodes -subj "{{ httpd_ssl_cert_subj_string }}" -days 3650 -keyout /var/lib/znc/.znc/key.pem -out /var/lib/znc/.znc/cert.pem
   args:
     creates: /var/lib/znc/.znc/key.pem
 
-- name: ZNC Pem is created step1
+- name: (znc_install) [5/6] Key Concatenated into Pem
   shell: "cat /var/lib/znc/.znc/key.pem > /var/lib/znc/.znc/znc.pem"
 
-- name: ZNC Pem is created step1
+- name: (znc_install) [6/6] Cert Concatenated into Pem
   shell: "cat /var/lib/znc/.znc/cert.pem >> /var/lib/znc/.znc/znc.pem"
