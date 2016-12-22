@@ -1,8 +1,7 @@
 ---
 # Tasks for ZNC
 
-- name: import secret variable file
-  include_vars: vault.yml
+- include_vars: vault.yml
   no_log: true
   tags: [znc,znc_install,znc_config]
 
