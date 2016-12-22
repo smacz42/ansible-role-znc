@@ -1,0 +1,12 @@
+---
+
+
+- name: Template /var/lib/znc/.znc/configs/znc.conf is deployed
+  template:
+    src: ../templates/znc.conf.j2
+    dest: /var/lib/znc/.znc/configs/znc.conf
+    owner: znc
+    group: znc
+    mode: 0640
+  notify:
+    - Restart znc

@@ -1,0 +1,7 @@
+---
+# Handler actions. This is typically a restart of a service.
+
+- name: Restart znc
+  service:
+    name: znc
+    state: restarted

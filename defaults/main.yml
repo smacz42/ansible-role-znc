@@ -1,0 +1,85 @@
+---
+
+znc_anoniplimit: 0
+znc_max_buffer_size: 5
+znc_connectdelay: 500
+znc_server_throttle: 30
+znc_modules:
+  - adminlog target syslog
+  - fail2ban 5 3
+    #- perleval
+    #- modperl
+    #- modpython
+
+znc_listeners:
+  - name: Listener1
+    allowirc: true
+    allowweb: false
+    ipv4: true
+    ipv6: false
+    port: 6697
+    ssl: true
+    uriprefix: "/znc/"
+
+znc_users:
+  - name: "{{ vault_name_1.name }}"
+    pass:
+      password: "{{ vault_name_1.passwd }}"
+      method: sha256
+      hash: "{{ vault_name_1.hash }}"
+      salt: "{{ vault_name_1.salt }}"
+    nick: smacz
+    altnick: smacz_
+    ident: Self-Hosted ZNC Bouncer
+    realname: AndrewCz
+    quitmsg: Visit me at https://hobbithole.blue
+    statusprefix: --
+    chanmodes: +stn
+    buffer: 6000
+    keepbuffer: false
+    multiclients: false
+    denyloadmod: false
+    admin: true
+    denysetbindhost: false
+    timestampformat: "[%b %H:%M]"
+    timezone: GMT-5
+    appendtimestamp: false
+    prependtimestamp: true
+    jointries: 3
+    maxjoins: 10
+    ircconnectenabled: true
+    allow: "*"
+    clientencoding: UTF-8
+    modules:
+      - autoreply I'm not logged in ATM. Your message has been emailed to me.
+      - log -sanitize
+      - keepnick
+      - nickserv
+      - simple_away -timer 60 %nick% is busy doing something else.
+    networks:
+      - name: "{{ vault_name_1.network_1.name }}"
+        server:  "{{ vault_name_1.network_1.server }}"
+        port: 6667
+        pass: "{{ vault_name_1.network_1.pass }}"
+        ircconnectenabled: true
+        nick: "{{ vault_name_1.network_1.nick }}"
+        ident: Self-Hosted ZNC behind a Squid Reverse Proxy
+        channels: "{{ vault_name_1.network_1.channels }}"
+        modules:
+      - name: "{{ vault_name_1.network_2.name }}"
+        server:  "{{ vault_name_1.network_2.server }}"
+        port: 6667
+        pass: "{{ vault_name_1.network_2.pass }}"
+        ircconnectenabled: true
+        nick: "{{ vault_name_1.network_2.nick }}"
+        ident: znc
+        channels: "{{ vault_name_1.network_2.channels }}"
+        modules:
+
+## SSL Cert
+httpd_ssl_cert_country: US
+httpd_ssl_cert_state: OH
+httpd_ssl_cert_locality: Columbus
+httpd_ssl_cert_common_name: "{{ ansible_fqdn }}"
+httpd_ssl_cert_subj_string: "/C={{ httpd_ssl_cert_country }}/ST={{ httpd_ssl_cert_state }}/L={{ httpd_ssl_cert_locality }}/CN={{ httpd_ssl_cert_common_name }}"
+httpd_ssl_cert_days: 3650
