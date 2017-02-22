@@ -57,7 +57,11 @@ LoadModule = {{ module }}
 
 {% for network in user.networks %}
     <Network {{ network.name }}>
+{% if network.pass %}
         Server = {{ network.server }} +{{ network.port }} {{ network.pass }}
+{% else %}
+        Server = {{ network.server }} +{{ network.port }}
+{% endif %}
         IRCConnectEnabled = {{ network.ircconnectenabled }}
         Nick = {{ network.nick }}
         Ident = {{ network.ident }}

@@ -30,7 +30,7 @@ znc_users:
       salt: "{{ vault_name_1.salt }}"
     nick: smacz
     altnick: smacz_
-    ident: Self-Hosted ZNC Bouncer
+    ident: smacz
     realname: AndrewCz
     quitmsg: Visit me at https://hobbithole.blue
     statusprefix: --
@@ -51,7 +51,7 @@ znc_users:
     allow: "*"
     clientencoding: UTF-8
     modules:
-      - autoreply I'm not logged in ATM. Your message has been emailed to me.
+      - autoreply I'm not logged in ATM. I will get back to you just as soon as I can.
       - log -sanitize
       - keepnick
       - nickserv
@@ -59,21 +59,30 @@ znc_users:
     networks:
       - name: "{{ vault_name_1.network_1.name }}"
         server:  "{{ vault_name_1.network_1.server }}"
-        port: 6667
+        port: 6697
         pass: "{{ vault_name_1.network_1.pass }}"
         ircconnectenabled: true
         nick: "{{ vault_name_1.network_1.nick }}"
-        ident: Self-Hosted ZNC behind a Squid Reverse Proxy
+        ident: smacz
         channels: "{{ vault_name_1.network_1.channels }}"
         modules:
       - name: "{{ vault_name_1.network_2.name }}"
         server:  "{{ vault_name_1.network_2.server }}"
-        port: 6667
+        port: 6697
         pass: "{{ vault_name_1.network_2.pass }}"
         ircconnectenabled: true
         nick: "{{ vault_name_1.network_2.nick }}"
-        ident: znc
+        ident: smacz
         channels: "{{ vault_name_1.network_2.channels }}"
+        modules:
+      - name: "{{ vault_name_1.network_3.name }}"
+        server:  "{{ vault_name_1.network_3.server }}"
+        port: 6697
+        pass: "{{ vault_name_1.network_3.pass }}"
+        ircconnectenabled: true
+        nick: "{{ vault_name_1.network_3.nick }}"
+        ident: smacz
+        channels: "{{ vault_name_1.network_3.channels }}"
         modules:
 
 ## SSL Cert

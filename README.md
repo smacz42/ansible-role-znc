@@ -1,4 +1,4 @@
-# Ansible Role: ZNC
+# Ansible Role: `znc`
 
 [![Build Status]]
 
@@ -6,7 +6,21 @@ Description
 
 ## Requirements
 
-*
+* RHEL only
+
+## Tags
+
+### Role-Specific tags:
+
+* znc
+* znc_install
+* znc_config
+
+### Global tags:
+
+* install
+* config
+* update
 
 ## Role Variables
 
@@ -17,16 +31,14 @@ Description
 
 ## Example Playbook
 
-```yaml
-- hosts: all
-  roles:
-    - { role: znc }
-```
+    - hosts: all
+      roles:
+        - { role: smacz42.znc }
 
 ## License
 
-MIT
+MIT / BSD
 
 ## Author Information
 
-This role was created in 2016 by [Andrew Cz](https://hobbithole.blue), a student at The Ohio State University.
+This role was created in 2017 by [Andrew Cz](https://hobbithole.blue), a student at The Ohio State University.

@@ -23,9 +23,12 @@
   command: openssl req -x509 -newkey rsa:2048 -nodes -subj "{{ httpd_ssl_cert_subj_string }}" -days 3650 -keyout /var/lib/znc/.znc/key.pem -out /var/lib/znc/.znc/cert.pem
   args:
     creates: /var/lib/znc/.znc/key.pem
+  register: new_key
 
 - name: (znc_install) [5/6] Key Concatenated into Pem
   shell: "cat /var/lib/znc/.znc/key.pem > /var/lib/znc/.znc/znc.pem"
+  when: new_key|succeeded
 
 - name: (znc_install) [6/6] Cert Concatenated into Pem
   shell: "cat /var/lib/znc/.znc/cert.pem >> /var/lib/znc/.znc/znc.pem"
+  when: new_key|succeeded
