@@ -32,7 +32,7 @@ znc_users:
     altnick: smacz_
     ident: smacz
     realname: AndrewCz
-    quitmsg: Visit me at https://hobbithole.blue
+    quitmsg: "Visit me at https://{{ ansible_domain }}"
     statusprefix: --
     chanmodes: +stn
     buffer: 6000
@@ -83,6 +83,15 @@ znc_users:
         nick: "{{ vault_name_1.network_3.nick }}"
         ident: smacz
         channels: "{{ vault_name_1.network_3.channels }}"
+        modules:
+      - name: "{{ vault_name_1.network_4.name }}"
+        server:  "{{ vault_name_1.network_4.server }}"
+        port: 6697
+        pass: "{{ vault_name_1.network_4.pass }}"
+        ircconnectenabled: true
+        nick: "{{ vault_name_1.network_4.nick }}"
+        ident: smacz
+        channels: "{{ vault_name_1.network_4.channels }}"
         modules:
 
 ## SSL Cert
