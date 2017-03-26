@@ -52,10 +52,11 @@ znc_users:
     clientencoding: UTF-8
     modules:
       - autoreply I'm not logged in ATM. I will get back to you just as soon as I can.
+      #- autoreply %nick% is busy doing something else.
+      - awaystore -timer 1800 {{ vault_name_1.awaystore_pass }}
       - log -sanitize
       - keepnick
       - nickserv
-      - simple_away -timer 60 %nick% is busy doing something else.
     networks:
       - name: "{{ vault_name_1.network_1.name }}"
         server:  "{{ vault_name_1.network_1.server }}"
